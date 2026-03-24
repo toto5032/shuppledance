@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle Dance - 영상 공유</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Shuffle Dance</a>
+            <a href="https://drive.google.com/drive/folders/{{ folder_id }}?usp=drive_link"
+               target="_blank" rel="noopener noreferrer" class="nav-drive-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Drive에서 열기
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Shuffle Dance</h1>
+            <p class="hero-desc">셔플댄스 연습 영상과 레슨 자료를 공유합니다</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="drive-section">
+            <div class="drive-toolbar">
+                <h2>영상 갤러리</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" id="gridBtn" onclick="switchView('grid')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                        그리드
+                    </button>
+                    <button class="view-btn" id="listBtn" onclick="switchView('list')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="3" y="4" width="18" height="3" rx="1"/>
+                            <rect x="3" y="10.5" width="18" height="3" rx="1"/>
+                            <rect x="3" y="17" width="18" height="3" rx="1"/>
+                        </svg>
+                        리스트
+                    </button>
+                </div>
+            </div>
+            <div class="drive-frame-wrapper">
+                <iframe
+                    id="driveFrame"
+                    src="https://drive.google.com/embeddedfolderview?id={{ folder_id }}#grid"
+                    class="drive-frame"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Shuffle Dance &copy; 2026</p>
+        </div>
+    </footer>
+
+    <script>
+    function switchView(view) {
+        const iframe = document.getElementById('driveFrame');
+        const gridBtn = document.getElementById('gridBtn');
+        const listBtn = document.getElementById('listBtn');
+
+        iframe.src = 'https://drive.google.com/embeddedfolderview?id={{ folder_id }}#' + view;
+
+        if (view === 'grid') {
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+        } else {
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        }
+    }
+    </script>
+</body>
+</html>
